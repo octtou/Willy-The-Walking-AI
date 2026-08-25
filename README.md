@@ -189,3 +189,7 @@ end)
 ```
 Inside the loop theres many things, first I reset Willies position so hes at his starting point, and make sure isDone is false, otherwise the loop will be over. Willy then will make his 3 actions, eather go left, right, or straight. He pericts not randomly, but by checking his raycast, if he thinks theres no best action thats when hes going to choose randomly, his actions are recorded onto a table for next episodes learning, even after he reachses the end, he still will optimize his path himself. after that we gave him reward based on his performance, and then we get to the next Episode!
 
+## Extra Stuff
+https://github.com/user-attachments/assets/18b3aa00-af7b-4b6f-a247-62e9aba59c6d
+
+WILLY MADE IT TO THE END IM SO PROUDD!!!!
