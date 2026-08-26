@@ -5,7 +5,7 @@ The materials I use to make the AI is a roblox library named DataPredict.
 you can find it on github:
 https://aqwamcreates.github.io/DataPredict/
 
-and you can also watch the creators basic explanation of the library
+and you can also watch the creators basic explanation of the library:
 https://www.youtube.com/watch?v=YwHONWUXsoc
 
 ## The Project
@@ -128,6 +128,8 @@ local function GetRaycast()
 	return RayState
 end
 ```
+<img width="632" height="402" alt="image" src="https://github.com/user-attachments/assets/8f0b58f6-4240-4b39-9132-877e5f4ba4ed" />
+
 Very proud of this code, work hard on it.
 
 This is the heart of the code, this is the LOOP. basicaly it loops 1k times. the loop ends if Willy goes to the end, or hit a wall, or the episode reaches 1k.
@@ -195,6 +197,44 @@ task.spawn(function()
 end)
 ```
 Inside the loop theres many things, first I reset Willies position so hes at his starting point, and make sure isDone is false, otherwise the loop will be over. Willy then will make his 3 actions, eather go left, right, or straight. He pericts not randomly, but by checking his raycast, if he thinks theres no best action thats when hes going to choose randomly, his actions are recorded onto a table for next episodes learning, even after he reachses the end, he still will optimize his path himself. after that we gave him reward based on his performance, and then we get to the next Episode!
+
+## Challenges
+There are quite a lot of challenges, the main problem is the document doesn't explain have everything (or maybe im just illiterate). another problem is this line of code, each model have their own functions to basicaly start the model to learn, but its different, and it took me 1 hour until i gave up and ask gemini, thats where it said to check the inside of the library to find the correct update/learning function.
+
+```luau
+Model:categoricalUpdate(
+	{currentState},      -- previous state
+	bestAction,              -- previous action
+	reward,              -- reward received
+	{nextState},         -- current state
+	nil,                 -- currentAction (unused by DQN)
+	isDone and 1 or 0    -- terminalStateValue must be 0 or 1
+)
+```
+Another problem is that sometimes the currentstate table thing gets a big number and it return a NAN, which basicaly broke the whole AI because it needs action numbers. I didn't solve this problem, and yes i did ask gemini to solve this and it said that i cant really do anything so it told me to make an if statement like this.
+
+```luau
+local rawOutput = Model:predict({currentState})
+				
+if typeof(rawOutput) == "table" then
+	if typeof(rawOutput[1]) == "table" then
+		bestAction = rawOutput[1][1]
+	else
+		bestAction = rawOutput[1]
+	end
+elseif typeof(rawOutput) == "number" then
+	bestAction = rawOutput
+end
+				
+if not bestAction or typeof(bestAction) ~= "number" then
+	warn("Predict returned:", bestAction)
+	bestAction = math.random(1, 3)
+end
+```
+This makes Willy learn slower than he should, and it is not optimized, if any of yall's know how to fix this please tell me.
+
+## Improvements
+When making WIlly i researched on what DQL and DQN is and i found many papers regarding them, though they are more of theoreys and it didnt help me that much on the coding part. but i do stumble across alot training methods, wich is the use of A* to make DQL more accurate and faster at learning, wich i might implement of Willy V2!
 
 ## Extra Stuff
 https://github.com/user-attachments/assets/18b3aa00-af7b-4b6f-a247-62e9aba59c6d
