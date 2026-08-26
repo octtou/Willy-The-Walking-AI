@@ -1,6 +1,13 @@
 ## Intoruction
 So its been a year, i havent made a new repo, ive been coding alot, while i still code on roblox i still do get better at coding. and on 23rd of Jully 2026 i made my first ever AI!!!! it was for a competition of making an essay and i got a bit of a scope creep. I couldn't belive myself that im able to make this with little to no AI involved, especialy for my first time and that theres not many materials on youtube about this kind of topic.
 
+The materials I use to make the AI is a roblox library named DataPredict.
+you can find it on github:
+https://aqwamcreates.github.io/DataPredict/
+
+and you can also watch the creators basic explanation of the library
+https://www.youtube.com/watch?v=YwHONWUXsoc
+
 ## The Project
 My goal was to make a fully working AI that can learn to navigate a simple enviorment, literely just get to the end. I choose this because i know its my first time, so it doesnt need to navigate a whole maze
 
